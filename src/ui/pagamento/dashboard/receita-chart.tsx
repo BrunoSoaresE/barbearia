@@ -1,7 +1,7 @@
 import { generateYAxis } from '@/src/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/src/ui/fonts';
-import { getRevenue } from '@/src/lib/repository/revenue.repository';
+import { getReceita } from '@/src/lib/repository/receita.repository';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -9,21 +9,21 @@ import { getRevenue } from '@/src/lib/repository/revenue.repository';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart() {
-  const revenue = await getRevenue(); // Fetch data inside the component
+export default async function ReceitaChart() {
+  const receita = await getReceita(); // Fetch data inside the component
 
   const chartHeight = 350;
 
-  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+  const { yAxisLabels, topLabel } = generateYAxis(receita);
 
-  if (!revenue || revenue.length === 0) {
+  if (!receita || receita.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
   }
 
   return (
     <div className="w-full md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Recent Revenue
+        Recent Receita
       </h2>
 
       <div className="rounded-xl bg-gray-50 p-4">
@@ -37,12 +37,12 @@ export default async function RevenueChart() {
             ))}
           </div>
 
-          {revenue.map((month) => (
+          {receita.map((month) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
                 className="w-full rounded-md bg-blue-300"
                 style={{
-                  height: `${(chartHeight / topLabel) * month.revenue}px`,
+                  height: `${(chartHeight / topLabel) * month.receita}px`,
                 }}
               ></div>
               <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">

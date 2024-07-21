@@ -1,14 +1,14 @@
 import { lusitana } from '@/src/ui/fonts';
 import { Suspense } from 'react';
 import {
-  RevenueChartSkeleton,
+  ReceitaChartSkeleton,
   ListaUltimosPagamentosSkeleton,
   CardsSkeleton,
 } from '@/src/ui/skeletons';
 
 import ListaUltimosPagamentos from '@/src/ui/pagamento/dashboard/ultimos-pagamento';
 import CardWrapper from '@/src/ui/pagamento/dashboard/cards';
-import RevenueChart from '@/src/ui/pagamento/dashboard/revenue-chart';
+import ReceitaChart from '@/src/ui/pagamento/dashboard/receita-chart';
 
  
 export default async function Page() {
@@ -25,8 +25,8 @@ export default async function Page() {
         </Suspense>
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-         <Suspense fallback={<RevenueChartSkeleton />}>
-          <RevenueChart />
+         <Suspense fallback={<ReceitaChartSkeleton />}>
+          <ReceitaChart />
         </Suspense>
           <Suspense fallback={<ListaUltimosPagamentosSkeleton />}>
           <ListaUltimosPagamentos />

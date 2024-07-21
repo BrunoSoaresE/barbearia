@@ -129,19 +129,19 @@ const pagamentos = [
   },
 ];
 
-const revenue = [
-  { month: 'Jan', revenue: 2000 },
-  { month: 'Feb', revenue: 1800 },
-  { month: 'Mar', revenue: 2200 },
-  { month: 'Apr', revenue: 2500 },
-  { month: 'May', revenue: 2300 },
-  { month: 'Jun', revenue: 3200 },
-  { month: 'Jul', revenue: 3500 },
-  { month: 'Aug', revenue: 3700 },
-  { month: 'Sep', revenue: 2500 },
-  { month: 'Oct', revenue: 2800 },
-  { month: 'Nov', revenue: 3000 },
-  { month: 'Dec', revenue: 4800 },
+const receita = [
+  { month: 'Jan', receita: 2000 },
+  { month: 'Feb', receita: 1800 },
+  { month: 'Mar', receita: 2200 },
+  { month: 'Apr', receita: 2500 },
+  { month: 'May', receita: 2300 },
+  { month: 'Jun', receita: 3200 },
+  { month: 'Jul', receita: 3500 },
+  { month: 'Aug', receita: 3700 },
+  { month: 'Sep', receita: 2500 },
+  { month: 'Oct', receita: 2800 },
+  { month: 'Nov', receita: 3000 },
+  { month: 'Dec', receita: 4800 },
 ];
 
-export { users, clientes, pagamentos, revenue };
+export { users, clientes, pagamentos, receita };
