@@ -30,11 +30,11 @@ export async function getFilteredClientes(query: string): Promise<ListaCliente_T
 		  clientes.name,
 		  clientes.email,
 		  clientes.image_url,
-		  COUNT(invoices.id) AS total_invoices,
-		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
-		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
+		  COUNT(pagamentos.id) AS total_pagamentos,
+		  SUM(CASE WHEN pagamentos.status = 'pending' THEN pagamentos.amount ELSE 0 END) AS total_pending,
+		  SUM(CASE WHEN pagamentos.status = 'paid' THEN pagamentos.amount ELSE 0 END) AS total_paid
 		FROM customers as clientes
-		LEFT JOIN invoices ON clientes.id = invoices.customer_id
+		LEFT JOIN invoices as pagamentos ON clientes.id = pagamentos.customer_id
 		WHERE
 		  clientes.name ILIKE ${`%${query}%`} OR
         clientes.email ILIKE ${`%${query}%`}

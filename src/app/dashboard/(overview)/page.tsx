@@ -1,14 +1,14 @@
-import RevenueChart from '@/src/ui/invoices/dashboard/revenue-chart';
-import LatestInvoices from '@/src/ui/invoices/dashboard/latest-invoices';
 import { lusitana } from '@/src/ui/fonts';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,
-  LatestInvoicesSkeleton,
+  ListaUltimosPagamentosSkeleton,
   CardsSkeleton,
 } from '@/src/ui/skeletons';
 
-import CardWrapper from '@/src/ui/invoices/dashboard/cards';
+import ListaUltimosPagamentos from '@/src/ui/pagamento/dashboard/ultimos-pagamento';
+import CardWrapper from '@/src/ui/pagamento/dashboard/cards';
+import RevenueChart from '@/src/ui/pagamento/dashboard/revenue-chart';
 
  
 export default async function Page() {
@@ -28,8 +28,8 @@ export default async function Page() {
          <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
         </Suspense>
-          <Suspense fallback={<LatestInvoicesSkeleton />}>
-          <LatestInvoices />
+          <Suspense fallback={<ListaUltimosPagamentosSkeleton />}>
+          <ListaUltimosPagamentos />
         </Suspense>
       </div>
     </main>

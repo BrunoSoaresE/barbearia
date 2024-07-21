@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { addInvoices, deleteInvoices, updateInvoices } from '../repository/invoices.repository';
+import { addPagamentos, deletePagamentos, updatePagamentos } from '../repository/pagamento.repository';
 
 
 
@@ -16,7 +16,7 @@ const FormSchema = z.object({
     .number()
     .gt(0, { message: 'Please enter an amount greater than $0.' }),
   status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an invoice status.',
+    invalid_type_error: 'Please select an pagamento status.',
   }),
   date: z.string(),
 });
@@ -31,13 +31,13 @@ export type State = {
 }
 
  
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreatePagamento = FormSchema.omit({ id: true, date: true });
+const UpdatePagamento = FormSchema.omit({ id: true, date: true });
 
  
-export async function createInvoice(prevState: State,formData: FormData)
+export async function createPagamento(prevState: State,formData: FormData)
 {    
-  const validatedFields = CreateInvoice.safeParse({
+  const validatedFields = CreatePagamento.safeParse({
       clienteId: formData.get('clienteId'),
       amount: formData.get('amount'),
       status: formData.get('status'),
@@ -46,7 +46,7 @@ export async function createInvoice(prevState: State,formData: FormData)
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
+      message: 'Missing Fields. Failed to Create Pagamento.',
     };
   }
 
@@ -57,26 +57,26 @@ export async function createInvoice(prevState: State,formData: FormData)
     const date = new Date().toISOString().split('T')[0];
 
   try {
-      await addInvoices(clienteId, amountInCents, status, date);
+      await addPagamentos(clienteId, amountInCents, status, date);
 
     } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Invoice.',
+      message: 'Database Error: Failed to Create Pagamento.',
     };
   }
 
-    revalidatePath('/dashboard/invoices');
-    redirect('/dashboard/invoices');
+    revalidatePath('/dashboard/pagamentos');
+    redirect('/dashboard/pagamentos');
 
 
 }
 
-export async function updateInvoice(
+export async function updatePagamento(
   id: string,
   prevState: State,
   formData: FormData,
 ) {
-  const validatedFields = UpdateInvoice.safeParse({
+  const validatedFields = UpdatePagamento.safeParse({
     clienteId: formData.get('clienteId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
@@ -85,7 +85,7 @@ export async function updateInvoice(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Invoice.',
+      message: 'Missing Fields. Failed to Update Pagamento.',
     };
   }
  
@@ -93,23 +93,23 @@ export async function updateInvoice(
   const amountInCents = amount * 100;
  
   try {
-    await updateInvoices(id, clienteId, amountInCents, status);
+    await updatePagamentos(id, clienteId, amountInCents, status);
   
   } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
+    return { message: 'Database Error: Failed to Update Pagamento.' };
   }
  
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+  revalidatePath('/dashboard/pagamentos');
+  redirect('/dashboard/pagamentos');
 }
 
-export async function deleteInvoice(id: string) {
+export async function deletePagamento(id: string) {
     
     try {
-         await deleteInvoices(id)
-         revalidatePath('/dashboard/invoices');
+         await deletePagamentos(id)
+         revalidatePath('/dashboard/pagamentos');
     } catch (error) {
-    return { message: 'Database Error: Failed to Delete Invoice.' };
+    return { message: 'Database Error: Failed to Delete Pagamento.' };
   }
 }
 

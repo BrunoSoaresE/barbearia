@@ -1,11 +1,11 @@
-import Form from '@/src/ui/invoices/create-form';
-import Breadcrumbs from '@/src/ui/invoices/breadcrumbs';
+import Form from '@/src/ui/pagamentos/create-form';
+import Breadcrumbs from '@/src/ui/pagamentos/breadcrumbs';
 import { getClientes } from '@/src/lib/repository/clientes.repository';
  
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
-  title: 'Create Invoices',
+  title: 'Create Pagamentos',
 };
 
 export default async function Page() {
@@ -15,10 +15,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
+          { label: 'Pagamentos', href: '/dashboard/pagamentos' },
           {
-            label: 'Create Invoice',
-            href: '/dashboard/invoices/create',
+            label: 'Create Pagamento',
+            href: '/dashboard/pagamentos/create',
             active: true,
           },
         ]}

@@ -12,7 +12,7 @@ export type ListaCliente_Tabela = {
   name: string;
   email: string;
   image_url: string;
-  total_invoices: number;
+  total_pagamentos: number;
   total_pending: number;
   total_paid: number;
 };
@@ -22,7 +22,7 @@ export type ListaCliente_TabelaFormatada = {
   name: string;
   email: string;
   image_url: string;
-  total_invoices: number;
+  total_pagamentos: number;
   total_pending: string;
   total_paid: string;
 };

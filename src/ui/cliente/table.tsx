@@ -54,7 +54,7 @@ export default async function ClientesTable({
                       </div>
                     </div>
                     <div className="pt-4 text-sm">
-                      <p>{cliente.total_invoices} invoices</p>
+                      <p>{cliente.total_pagamentos} pagamentos</p>
                     </div>
                   </div>
                 ))}
@@ -69,7 +69,7 @@ export default async function ClientesTable({
                       Email
                     </th>
                     <th scope="col" className="px-3 py-5 font-medium">
-                      Total Invoices
+                      Total Pagamentos
                     </th>
                     <th scope="col" className="px-3 py-5 font-medium">
                       Total Pending
@@ -99,7 +99,7 @@ export default async function ClientesTable({
                         {cliente.email}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {cliente.total_invoices}
+                        {cliente.total_pagamentos}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
                         {cliente.total_pending}
