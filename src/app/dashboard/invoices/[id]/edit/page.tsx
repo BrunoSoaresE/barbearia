@@ -1,7 +1,7 @@
 import Form from '@/src/ui/invoices/edit-form';
 import Breadcrumbs from '@/src/ui/invoices/breadcrumbs';
 import { getInvoiceById } from '@/src/lib/repository/invoices.repository';
-import { getCustomers } from '@/src/lib/repository/customers.repository';
+import { getClientes } from '@/src/lib/repository/clientes.repository';
 import notFound from './not-found';
 
  import { Metadata } from 'next';
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 
-   const [invoice, customers] = await Promise.all([
+   const [invoice, clientes] = await Promise.all([
     getInvoiceById(id),
-    getCustomers(),
+    getClientes(),
    ]);
   
    if (!invoice) {
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           },
         ]}
       />
-      <Form invoice={invoice} customers={customers} />
+      <Form invoice={invoice} clientes={clientes} />
     </main>
   );
 }

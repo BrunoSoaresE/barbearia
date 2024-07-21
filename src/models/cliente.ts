@@ -1,13 +1,13 @@
 
 
-export type Customer = {
+export type Cliente = {
   id: string;
   name: string;
   email: string;
   image_url: string;
 };
 
-export type CustomersTableType = {
+export type ListaCliente_Tabela = {
   id: string;
   name: string;
   email: string;
@@ -17,7 +17,7 @@ export type CustomersTableType = {
   total_paid: number;
 };
 
-export type FormattedCustomersTable = {
+export type ListaCliente_TabelaFormatada = {
   id: string;
   name: string;
   email: string;
@@ -27,7 +27,7 @@ export type FormattedCustomersTable = {
   total_paid: string;
 };
 
-export type CustomerField = {
+export type Cliente_Select = {
   id: string;
   name: string;
 };

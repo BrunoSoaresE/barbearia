@@ -3,7 +3,7 @@ type InvoiceStatus = 'pending' | 'paid';
 
 export type Invoice = {
   id: string;
-  customer_id: string;
+  customers_id: string;
   amount: number;
   date: string;
   // In TypeScript, this is called a string union type.
@@ -27,7 +27,7 @@ export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
 
 export type InvoicesTable = {
   id: string;
-  customer_id: string;
+  customers_id: string;
   name: string;
   email: string;
   image_url: string;
@@ -39,14 +39,14 @@ export type InvoicesTable = {
 
 export type InvoiceForm = {
   id: string;
-  customer_id: string;
+  customers_id: string;
   amount: number;
   status: InvoiceStatus;
 };
 
 
 export type InvoicesCards = {
-  numberOfCustomers: number;
+  numberOfClientes: number;
   numberOfInvoices: number;
   totalPaidInvoices: string;
   totalPendingInvoices: string;

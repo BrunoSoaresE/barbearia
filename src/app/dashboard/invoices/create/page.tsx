@@ -1,6 +1,6 @@
 import Form from '@/src/ui/invoices/create-form';
 import Breadcrumbs from '@/src/ui/invoices/breadcrumbs';
-import { getCustomers } from '@/src/lib/repository/customers.repository';
+import { getClientes } from '@/src/lib/repository/clientes.repository';
  
 import { Metadata } from 'next';
  
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const customers = await getCustomers();
+  const clientes = await getClientes();
  
   return (
     <main>
@@ -23,7 +23,7 @@ export default async function Page() {
           },
         ]}
       />
-      <Form customers={customers} />
+      <Form clientes={clientes} />
     </main>
   );
 }

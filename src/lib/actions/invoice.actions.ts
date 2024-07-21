@@ -9,8 +9,8 @@ import { addInvoices, deleteInvoices, updateInvoices } from '../repository/invoi
 
 const FormSchema = z.object({
   id: z.string(),
-  customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
+  clienteId: z.string({
+    invalid_type_error: 'Please select a cliente.',
   }),
   amount: z.coerce
     .number()
@@ -23,7 +23,7 @@ const FormSchema = z.object({
 
 export type State = {
   errors?: {
-    customerId?: string[];
+    clienteId?: string[];
     amount?: string[];
     status?: string[];
   };
@@ -38,7 +38,7 @@ const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 export async function createInvoice(prevState: State,formData: FormData)
 {    
   const validatedFields = CreateInvoice.safeParse({
-      customerId: formData.get('customerId'),
+      clienteId: formData.get('clienteId'),
       amount: formData.get('amount'),
       status: formData.get('status'),
   });
@@ -50,14 +50,14 @@ export async function createInvoice(prevState: State,formData: FormData)
     };
   }
 
-  const { customerId, amount, status } = validatedFields.data;
+  const { clienteId, amount, status } = validatedFields.data;
 
   const amountInCents = amount * 100;  
 
     const date = new Date().toISOString().split('T')[0];
 
   try {
-      await addInvoices(customerId, amountInCents, status, date);
+      await addInvoices(clienteId, amountInCents, status, date);
 
     } catch (error) {
     return {
@@ -77,7 +77,7 @@ export async function updateInvoice(
   formData: FormData,
 ) {
   const validatedFields = UpdateInvoice.safeParse({
-    customerId: formData.get('customerId'),
+    clienteId: formData.get('clienteId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
@@ -89,11 +89,11 @@ export async function updateInvoice(
     };
   }
  
-  const { customerId, amount, status } = validatedFields.data;
+  const { clienteId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
  
   try {
-    await updateInvoices(id, customerId, amountInCents, status);
+    await updateInvoices(id, clienteId, amountInCents, status);
   
   } catch (error) {
     return { message: 'Database Error: Failed to Update Invoice.' };

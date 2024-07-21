@@ -9,13 +9,13 @@ import { getCardData } from '@/src/lib/repository/invoices.repository';
 
 const iconMap = {
   collected: BanknotesIcon,
-  customers: UserGroupIcon,
+  clientes: UserGroupIcon,
   pending: ClockIcon,
   invoices: InboxIcon,
 };
 
 export default async function CardWrapper() {
-     const { numberOfCustomers,
+     const { numberOfClientes,
             numberOfInvoices,
             totalPaidInvoices,
             totalPendingInvoices, } = await getCardData();
@@ -27,9 +27,9 @@ export default async function CardWrapper() {
       <Card title="Pending" value={totalPendingInvoices} type="pending" />
       <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
       <Card
-        title="Total Customers"
-        value={numberOfCustomers}
-        type="customers"
+        title="Total Clientes"
+        value={numberOfClientes}
+        type="clientes"
       />
     </>
   );
@@ -42,7 +42,7 @@ export function Card({
 }: {
   title: string;
   value: number | string;
-  type: 'invoices' | 'customers' | 'pending' | 'collected';
+  type: 'invoices' | 'clientes' | 'pending' | 'collected';
 }) {
   const Icon = iconMap[type];
 

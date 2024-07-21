@@ -16,9 +16,9 @@ export async function getLatestInvoices(): Promise<LatestInvoice[]> {
 
 
     const data = await sql<LatestInvoiceRaw>`
-      SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
+      SELECT invoices.amount, clientes.name, clientes.image_url, clientes.email, invoices.id
       FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
+      JOIN customers as clientes ON invoices.customer_id = clientes.id
       ORDER BY invoices.date DESC
       LIMIT 5`;
     
@@ -47,7 +47,7 @@ export async function getCardData(): Promise<InvoicesCards> {
     // However, we are intentionally splitting them to demonstrate
     // how to initialize multiple queries in parallel with JS.
     const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
+    const clienteCountPromise = sql`SELECT COUNT(*) FROM customers`;
     const invoiceStatusPromise = sql`SELECT
          SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
@@ -55,17 +55,17 @@ export async function getCardData(): Promise<InvoicesCards> {
 
     const data = await Promise.all([
       invoiceCountPromise,
-      customerCountPromise,
+      clienteCountPromise,
       invoiceStatusPromise,
     ]);
 
     const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
-    const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
+    const numberOfClientes = Number(data[1].rows[0].count ?? '0');
     const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? '0');
     const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? '0');
 
     return {
-      numberOfCustomers,
+      numberOfClientes,
       numberOfInvoices,
       totalPaidInvoices,
       totalPendingInvoices,
@@ -91,14 +91,14 @@ export async function getFilteredInvoices(
         invoices.amount,
         invoices.date,
         invoices.status,
-        customers.name,
-        customers.email,
-        customers.image_url
+        clientes.name,
+        clientes.email,
+        clientes.image_url
       FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
+      JOIN customers as clientes ON invoices.customer_id = clientes.id
       WHERE
-        customers.name ILIKE ${`%${query}%`} OR
-        customers.email ILIKE ${`%${query}%`} OR
+        clientes.name ILIKE ${`%${query}%`} OR
+        clientes.email ILIKE ${`%${query}%`} OR
         invoices.amount::text ILIKE ${`%${query}%`} OR
         invoices.date::text ILIKE ${`%${query}%`} OR
         invoices.status ILIKE ${`%${query}%`}
@@ -117,10 +117,10 @@ export async function getInvoicesPages(query: string): Promise<number> {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
+    JOIN customers as clientes ON invoices.customer_id = clientes.id
     WHERE
-      customers.name ILIKE ${`%${query}%`} OR
-      customers.email ILIKE ${`%${query}%`} OR
+      clientes.name ILIKE ${`%${query}%`} OR
+      clientes.email ILIKE ${`%${query}%`} OR
       invoices.amount::text ILIKE ${`%${query}%`} OR
       invoices.date::text ILIKE ${`%${query}%`} OR
       invoices.status ILIKE ${`%${query}%`}
@@ -164,12 +164,12 @@ export async function getInvoiceById(id: string): Promise<InvoiceForm> {
 
 
 
-export async function addInvoices(customerId: string, amountInCents: number, status: string, date: string): Promise<void> {
+export async function addInvoices(clienteId: string, amountInCents: number, status: string, date: string): Promise<void> {
   try {
 
       await sql`
-          INSERT INTO invoices (customer_id, amount, status, date)
-          VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
+          INSERT INTO invoices (customers_id, amount, status, date)
+          VALUES (${clienteId}, ${amountInCents}, ${status}, ${date})
       `;
     
     
@@ -181,12 +181,12 @@ export async function addInvoices(customerId: string, amountInCents: number, sta
 
 
 
-export async function updateInvoices(id: string,customerId: string, amountInCents: number, status: string): Promise<void>{
+export async function updateInvoices(id: string,clienteId: string, amountInCents: number, status: string): Promise<void>{
   try {
 
       await sql`
       UPDATE invoices
-      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+      SET customers_id = ${clienteId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
     
