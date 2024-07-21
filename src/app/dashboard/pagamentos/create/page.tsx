@@ -1,8 +1,8 @@
-import Form from '@/src/ui/pagamentos/create-form';
-import Breadcrumbs from '@/src/ui/pagamentos/breadcrumbs';
-import { getClientes } from '@/src/lib/repository/clientes.repository';
+import Form from '@/src/ui/pagamento/create-form';
+import Breadcrumbs from '@/src/ui/pagamento/breadcrumbs';
  
 import { Metadata } from 'next';
+import { getClientes } from '@/src/lib/repository/cliente.repository';
  
 export const metadata: Metadata = {
   title: 'Create Pagamentos',
