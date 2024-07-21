@@ -1,7 +1,8 @@
 'use server';
 
-import { signIn } from '@/auth';
+import { auth, signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 
 
@@ -22,4 +23,16 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export  async function authUsuario(){
+  const session = await auth()
+
+  const now = new Date();
+  const tokenExpiration = new Date(session?.expires ?? "");
+  
+  if (now < tokenExpiration === false) {
+      redirect('/login');
+  }
+  
 }

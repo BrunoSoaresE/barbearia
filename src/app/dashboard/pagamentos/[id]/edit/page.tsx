@@ -4,7 +4,7 @@ import notFound from './not-found';
  import { Metadata } from 'next';
 import { getClientes } from '@/src/lib/repository/cliente.repository';
 import Breadcrumbs from '@/src/ui/pagamento/breadcrumbs';
-import Form from '@/src/ui/pagamento/create-form';
+import Form from '@/src/ui/pagamento/edit-form';
  
 export const metadata: Metadata = {
   title: 'Edit Pagamentos',

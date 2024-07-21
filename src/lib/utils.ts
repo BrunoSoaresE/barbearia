@@ -1,5 +1,3 @@
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
 import { Receita } from '../models/receita';
 
 export const formatCurrency = (amount: number) => {
@@ -71,14 +69,3 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 };
 
 
-export  const authUsuario = async () => {
-  const session = await auth()
-
-  const now = new Date();
-  const tokenExpiration = new Date(session?.expires ?? "");
-  
-  if (now < tokenExpiration === false) {
-      redirect('/login');
-  }
-  
-}

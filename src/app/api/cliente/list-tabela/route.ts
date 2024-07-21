@@ -1,12 +1,10 @@
+import { authUsuario } from '@/src/lib/actions/authenticate.actions';
 import { getFilteredClientes } from '@/src/lib/repository/cliente.repository';
-import { authUsuario } from '@/src/lib/utils';
-import type { NextApiRequest } from 'next'
 
-import { NextResponse } from "next/server";
-const secret = process.env.AUTH_SECRET as string;
+import { NextRequest, NextResponse } from "next/server";
 
 //http://localhost:3000/api/cliente/list-tabela?query=John
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   await authUsuario();  
   
   
